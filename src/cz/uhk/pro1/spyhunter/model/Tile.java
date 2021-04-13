@@ -1,10 +1,14 @@
 package cz.uhk.pro1.spyhunter.model;
 
+import java.awt.*;
+
 public interface Tile {
+    int SIZE = 20;
+
     /**
      * Vykresli dlazdici na herni plochu
      */
-    public void drawTile();
+    public void drawTile(Graphics g, int x, int y);
 
     /**
      * Provede zmenu herniho stavu v pripade, ze doslo ke kolizi auta s danou dlazdici
