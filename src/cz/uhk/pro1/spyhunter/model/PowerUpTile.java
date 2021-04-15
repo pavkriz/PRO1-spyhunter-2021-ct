@@ -13,7 +13,7 @@ public class PowerUpTile implements Tile {
 
     @Override
     public void actionOnCollision(Game game) {
-
+        // TODO
     }
 
     @Override

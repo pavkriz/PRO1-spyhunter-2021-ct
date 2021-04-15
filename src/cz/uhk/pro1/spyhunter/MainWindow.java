@@ -4,33 +4,47 @@ import cz.uhk.pro1.spyhunter.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainWindow extends JFrame {
 
     Game game = new Game();
-    private final Timer timer = new Timer(20, actionEvent -> tick());
+    private final Timer timer = new Timer(10, actionEvent -> tick());
     GamePanel gamePanel = new GamePanel();
 
     class GamePanel extends JPanel {
         @Override
         public void paint(Graphics g) {
             //System.out.println("paint");
-            //super.paint(g);
+            super.paint(g);
             //g.fillRect(10, 20, 100, 200);
             game.drawMap(g);
+
         }
     }
 
     public MainWindow() {
         setTitle("SpyHunter");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(400,300));
         //p.setBackground(Color.RED);
         add(gamePanel, BorderLayout.CENTER);
         gamePanel.setDoubleBuffered(true); // potencialne plynulejsi animace
+        gamePanel.setPreferredSize(new Dimension(300,300));
         pack();
         populateGame();
         dumpGame();
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                //System.out.println(keyEvent);
+                if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
+                    game.moveCar(-3);
+                } else if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    game.moveCar(3);
+                }
+            }
+        });
         timer.start();
     }
 
