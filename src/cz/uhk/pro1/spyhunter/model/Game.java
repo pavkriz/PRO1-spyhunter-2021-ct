@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.font.GraphicAttribute;
 
 public class Game {
-    Tile [][] map = new Tile[20][15];
+    Tile [][] map = new Tile[20][10];
     int elapsedY = 0;
     boolean gameOver = false;
     public Car car = new Car(150,150);

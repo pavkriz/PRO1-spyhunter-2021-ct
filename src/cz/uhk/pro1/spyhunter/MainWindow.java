@@ -1,6 +1,7 @@
 package cz.uhk.pro1.spyhunter;
 
 import cz.uhk.pro1.spyhunter.model.*;
+import cz.uhk.pro1.spyhunter.services.CsvGameLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class MainWindow extends JFrame {
         gamePanel.setPreferredSize(new Dimension(300,300));
         pack();
         populateGame();
-        dumpGame();
+        //dumpGame();
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
@@ -59,24 +60,26 @@ public class MainWindow extends JFrame {
     }
 
     private void populateGame() {
-        NonRoadTile nonRoadTile = new NonRoadTile();
-        RoadTile roadTile = new RoadTile();
-        game = new Game();
-        for(int i = 0; i <game.getRadky();++i)
-        {
-            for(int j = 0; j < game.getSloupce();++j)
-            {
-                if(j==0||j==game.getSloupce()-1)    // j = sloupec
-                {
-                    game.setTileOnMap(i,j,nonRoadTile);
-                }
-                else
-                {
-                    game.setTileOnMap(i,j,roadTile);
-                }
-            }
-        }
-        game.setTileOnMap(3,3, new PowerUpTile());
+//        NonRoadTile nonRoadTile = new NonRoadTile();
+//        RoadTile roadTile = new RoadTile();
+//        game = new Game();
+//        for(int i = 0; i <game.getRadky();++i)
+//        {
+//            for(int j = 0; j < game.getSloupce();++j)
+//            {
+//                if(j==0||j==game.getSloupce()-1)    // j = sloupec
+//                {
+//                    game.setTileOnMap(i,j,nonRoadTile);
+//                }
+//                else
+//                {
+//                    game.setTileOnMap(i,j,roadTile);
+//                }
+//            }
+//        }
+//        game.setTileOnMap(3,3, new PowerUpTile());
+        CsvGameLoader loader = new CsvGameLoader();
+        game = loader.loadGame();
     }
 
     private void dumpGame() {
