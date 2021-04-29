@@ -31,7 +31,7 @@ public class MainWindow extends JFrame {
         //p.setBackground(Color.RED);
         add(gamePanel, BorderLayout.CENTER);
         gamePanel.setDoubleBuffered(true); // potencialne plynulejsi animace
-        gamePanel.setPreferredSize(new Dimension(300,300));
+        gamePanel.setPreferredSize(new Dimension(300,800));
         pack();
         populateGame();
         //dumpGame();

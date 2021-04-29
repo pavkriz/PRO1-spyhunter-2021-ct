@@ -2,12 +2,10 @@ package cz.uhk.pro1.spyhunter.model;
 
 import java.awt.*;
 
-public class NonRoadTile implements Tile {
+public class NonRoadTile extends AbstractTile {
 
-    @Override
-    public void drawTile(Graphics g, int x, int y) {
-        g.setColor(Color.GREEN);
-        g.fillRect(x,y,Tile.SIZE,Tile.SIZE);
+    public NonRoadTile(Image image) {
+        super(image);
     }
 
     @Override

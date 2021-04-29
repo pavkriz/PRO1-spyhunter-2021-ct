@@ -10,11 +10,11 @@ public class Car {
     private int y;
     private Image image;
 
-    public Car(int startX, int startY){
+    public Car(int startX, int startY, String textureURL) {
         x = startX;
         y = startY;
         try {
-            image = ImageIO.read(new URL("https://lide.uhk.cz/fim/ucitel/krizpa1/pro2/spyhunter/car2.png"));
+            image = ImageIO.read(new URL(textureURL));
         } catch (IOException e) {
             e.printStackTrace();
         }

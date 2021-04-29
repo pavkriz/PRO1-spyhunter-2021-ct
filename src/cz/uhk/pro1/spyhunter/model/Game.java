@@ -7,7 +7,11 @@ public class Game {
     Tile [][] map = new Tile[20][10];
     int elapsedY = 0;
     boolean gameOver = false;
-    public Car car = new Car(150,150);
+    int score = 0;
+
+    int normalTickShift = 1;
+
+    private Car car;
     public boolean getGameOver()
     {
         return gameOver;
@@ -35,8 +39,8 @@ public class Game {
 
 
     public void drawMap(Graphics g) {
-        int shiftMap = 300;
-        int numberOfLinesToDraw = shiftMap/Tile.SIZE +2; // TODO proc +2 ?
+        int shiftMap = 800;
+        int numberOfLinesToDraw = shiftMap/Tile.SIZE + 2; // TODO proc +2 ?
         for (int i = elapsedY/Tile.SIZE; i < elapsedY/Tile.SIZE + numberOfLinesToDraw; ++i) {
             for (int j = 0; j < getSloupce(); ++j) {
                 // - i*Tile.SIZE dalsi a dalsi dlazdice, minus = kresli vice a vice nahoru
@@ -54,8 +58,14 @@ public class Game {
                 {
                     tile.actionOnCollision(this);
                 }
+
+                if (i == ((elapsedY/Tile.SIZE + numberOfLinesToDraw) - 1) && tile instanceof PowerUpTile) {
+                    ((PowerUpTile)tile).reactivatePowerUp();
+                }
             }
         }
+        g.setColor(Color.white);
+        g.drawString("Score: " + score, 5, 15);
         car.draw(g);
     }
 
@@ -71,7 +81,32 @@ public class Game {
      */
     public void tickGame() {
         if (!gameOver) {
-            elapsedY += 1;
+            elapsedY += normalTickShift;
         }
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getElapsedY() {
+        return elapsedY;
+    }
+
+    public void setElapsedY(int elapsedY) {
+        this.elapsedY = elapsedY;
+    }
+
+
+    public void setNormalTickShift(int normalTickShift) {
+        this.normalTickShift = normalTickShift;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

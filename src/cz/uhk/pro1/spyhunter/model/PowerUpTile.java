@@ -4,20 +4,37 @@ import java.awt.*;
 
 public class PowerUpTile implements Tile {
 
+    boolean active = true;
+
 
     @Override
     public void drawTile(Graphics g, int x, int y) {
-        g.setColor(Color.YELLOW);
+        if (active) {
+            g.setColor(Color.YELLOW);
+        } else {
+            g.setColor(Color.BLACK);
+        }
         g.fillRect(x,y,Tile.SIZE,Tile.SIZE);
     }
 
     @Override
     public void actionOnCollision(Game game) {
-        // TODO
+        if (active) {
+            game.setScore(game.getScore() + 10);  // pridat skore
+            //game.setElapsedY(game.getElapsedY() + 100); // teleportovat o nekolik pixelu dale
+            active = false;
+            //game.setNormalTickShift(2);
+        }
     }
 
     @Override
     public String toString() {
         return "@";
+    }
+
+
+    public void reactivatePowerUp()
+    {
+        this.active = true;
     }
 }

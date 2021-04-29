@@ -2,22 +2,25 @@ package cz.uhk.pro1.spyhunter.services;
 
 import cz.uhk.pro1.spyhunter.model.*;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
 public class CsvGameLoader {
-    // rows count
-    // cols count
-    // window width pixels
-    // window height pixels
-    // timer interval ms
-    // car movement pixels
-    // car start x
-    // car start y
-    // map shift pixels per frame
-    // tile size pixels
+    // 0 rows count
+    // 1 cols count
+    // 2 window width pixels
+    // 3 window height pixels
+    // 4 timer interval ms
+    // 5 car movement pixels
+    // 6 car start x
+    // 7 car start y
+    // 8 map shift pixels per frame
+    // 9 tile size pixels
 
     public Game loadGame() {
         Game game = new Game();
@@ -42,8 +45,8 @@ public class CsvGameLoader {
             line = br.readLine();
             String powerUpTileUrl = line.split(";")[0];
 
-
-            Tile nonRoadTile = new NonRoadTile();
+            Image nonRoadTileImage = loadImage(nonRoadUrl);
+            Tile nonRoadTile = new NonRoadTile(nonRoadTileImage);
             Tile powerUpTile = new PowerUpTile();
             Tile roadTile = new RoadTile();
 
@@ -62,6 +65,11 @@ public class CsvGameLoader {
                 }
             }
 
+            int startX = poleHlavickaInt[6];
+            int startY = poleHlavickaInt[7];
+
+            game.setCar(new Car(startX,startY, carUrl));
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -69,5 +77,9 @@ public class CsvGameLoader {
         }
 
         return game;
+    }
+
+    private Image loadImage(String url) throws IOException {
+        return ImageIO.read(new URL(url));
     }
 }
