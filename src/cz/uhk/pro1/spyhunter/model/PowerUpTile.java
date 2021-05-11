@@ -2,19 +2,24 @@ package cz.uhk.pro1.spyhunter.model;
 
 import java.awt.*;
 
-public class PowerUpTile implements Tile {
-
+public class PowerUpTile extends AbstractTile  {
+    public PowerUpTile(Image image, Image imageRoad)
+    {
+        super(image);
+        powerUpTileRoad = imageRoad;
+    }
+    Image powerUpTileRoad;
     boolean active = true;
 
 
     @Override
     public void drawTile(Graphics g, int x, int y) {
         if (active) {
-            g.setColor(Color.YELLOW);
+            //g.drawImage(image, x, y, null);
+            super.drawTile(g, x, y);
         } else {
-            g.setColor(Color.BLACK);
+            g.drawImage(powerUpTileRoad, x , y, null);
         }
-        g.fillRect(x,y,Tile.SIZE,Tile.SIZE);
     }
 
     @Override

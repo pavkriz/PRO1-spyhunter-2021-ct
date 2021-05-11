@@ -10,7 +10,8 @@ import java.awt.event.KeyEvent;
 
 public class MainWindow extends JFrame {
 
-    Game game = new Game();
+    public Game game;
+
     private final Timer timer = new Timer(10, actionEvent -> tick());
     GamePanel gamePanel = new GamePanel();
 
@@ -31,9 +32,9 @@ public class MainWindow extends JFrame {
         //p.setBackground(Color.RED);
         add(gamePanel, BorderLayout.CENTER);
         gamePanel.setDoubleBuffered(true); // potencialne plynulejsi animace
-        gamePanel.setPreferredSize(new Dimension(300,800));
-        pack();
         populateGame();
+        gamePanel.setPreferredSize(new Dimension(game.getWindowWidt(),game.getWindowHeight()));
+        pack();
         //dumpGame();
         addKeyListener(new KeyAdapter() {
             @Override

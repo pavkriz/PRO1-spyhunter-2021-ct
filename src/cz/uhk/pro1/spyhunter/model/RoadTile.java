@@ -2,12 +2,12 @@ package cz.uhk.pro1.spyhunter.model;
 
 import java.awt.*;
 
-public class RoadTile implements Tile {
-    @Override
-    public void drawTile(Graphics g, int x, int y) {
-        g.setColor(Color.BLACK);
-        g.fillRect(x,y,Tile.SIZE,Tile.SIZE);
+public class RoadTile extends AbstractTile {
+    public RoadTile(Image image)
+    {
+       super(image);
     }
+
 
     @Override
     public void actionOnCollision(Game game) {

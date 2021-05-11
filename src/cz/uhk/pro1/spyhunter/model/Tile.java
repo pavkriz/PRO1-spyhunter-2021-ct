@@ -3,7 +3,7 @@ package cz.uhk.pro1.spyhunter.model;
 import java.awt.*;
 
 public interface Tile {
-    int SIZE = 16;
+
 
     /**
      * Vykresli dlazdici na herni plochu

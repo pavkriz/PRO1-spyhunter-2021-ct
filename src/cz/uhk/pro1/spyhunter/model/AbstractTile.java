@@ -5,6 +5,7 @@ import java.awt.*;
 public abstract class AbstractTile implements Tile {
     private Image image;
 
+
     public AbstractTile(Image image) {
         this.image = image;
     }

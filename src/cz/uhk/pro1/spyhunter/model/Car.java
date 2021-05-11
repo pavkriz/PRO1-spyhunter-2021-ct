@@ -28,9 +28,9 @@ public class Car {
         g.drawImage(image, x, y, null);
     }
 
-    public boolean collidesWithTile(int tileX, int tileY) {
+    public boolean collidesWithTile(int tileX, int tileY, int tileSize) {
         Rectangle rectCar = new Rectangle(x , y, image.getWidth(null), image.getHeight(null));
-        Rectangle rectTile = new Rectangle(tileX, tileY, Tile.SIZE, Tile.SIZE);
+        Rectangle rectTile = new Rectangle(tileX, tileY, tileSize, tileSize);
         return rectCar.intersects(rectTile);
     }
 }

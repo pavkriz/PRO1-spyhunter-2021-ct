@@ -8,6 +8,9 @@ public class Game {
     int elapsedY = 0;
     boolean gameOver = false;
     int score = 0;
+    int windowHeight=0;
+    int windowWidt=0;
+    int tileSize=0;
 
     int normalTickShift = 1;
 
@@ -32,34 +35,54 @@ public class Game {
     public void setTileOnMap(int i,int j, Tile tile) {
         map[i][j]=tile;
     }
+
     public Tile[][] getMap()
     {
         return map;
     }
 
+    public void setTileSize(int tileSize) {
+        this.tileSize = tileSize;
+    }
+
+    public int getWindowHeight() {
+        return windowHeight;
+    }
+
+    public void setWindowHeight(int windowHeight) {
+        this.windowHeight = windowHeight;
+    }
+
+    public int getWindowWidt() {
+        return windowWidt;
+    }
+
+    public void setWindowWidt(int windowWidt) {
+        this.windowWidt = windowWidt;
+    }
 
     public void drawMap(Graphics g) {
         int shiftMap = 800;
-        int numberOfLinesToDraw = shiftMap/Tile.SIZE + 2; // TODO proc +2 ?
-        for (int i = elapsedY/Tile.SIZE; i < elapsedY/Tile.SIZE + numberOfLinesToDraw; ++i) {
+        int numberOfLinesToDraw = shiftMap/tileSize + 2; // TODO proc +2 ?
+        for (int i = elapsedY/tileSize; i < elapsedY/tileSize + numberOfLinesToDraw; ++i) {
             for (int j = 0; j < getSloupce(); ++j) {
-                // - i*Tile.SIZE dalsi a dalsi dlazdice, minus = kresli vice a vice nahoru
+                // - i*tileSize dalsi a dalsi dlazdice, minus = kresli vice a vice nahoru
                 // + elapsedY posune vykresleni mapy o elapsedY pixelu, plus = dolu (nize) "ubiha dolu v case"
                 // + shiftMap posune vykresleni mapy smerem dolu o velikost okna (jinak by byla cela nareslena "nahoru" mimo okno do zapornych souradnic)
 
-                int x = j*Tile.SIZE;
-                int y = - i*Tile.SIZE + elapsedY + shiftMap;
+                int x = j*tileSize;
+                int y = - i*tileSize + elapsedY + shiftMap;
                 Tile tile = map[i % getRadky()][j];
                 tile.drawTile(g, x,  y);
 
 
 
-                if(car.collidesWithTile(x,y))
+                if(car.collidesWithTile(x,y, tileSize))
                 {
                     tile.actionOnCollision(this);
                 }
 
-                if (i == ((elapsedY/Tile.SIZE + numberOfLinesToDraw) - 1) && tile instanceof PowerUpTile) {
+                if (i == ((elapsedY/tileSize + numberOfLinesToDraw) - 1) && tile instanceof PowerUpTile) {
                     ((PowerUpTile)tile).reactivatePowerUp();
                 }
             }

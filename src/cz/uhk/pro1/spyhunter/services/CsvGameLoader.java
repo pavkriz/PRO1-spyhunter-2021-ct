@@ -1,5 +1,6 @@
 package cz.uhk.pro1.spyhunter.services;
 
+import cz.uhk.pro1.spyhunter.MainWindow;
 import cz.uhk.pro1.spyhunter.model.*;
 
 import javax.imageio.ImageIO;
@@ -22,6 +23,9 @@ public class CsvGameLoader {
     // 8 map shift pixels per frame
     // 9 tile size pixels
 
+
+
+
     public Game loadGame() {
         Game game = new Game();
 
@@ -32,6 +36,14 @@ public class CsvGameLoader {
             for (int i = 0; i < pole.length; i++){
                 poleHlavickaInt[i] = Integer.parseInt(pole[i]);
             }
+            int windowWidth = poleHlavickaInt[2];
+            int windowHeight = poleHlavickaInt[3];
+
+            int tileSize = poleHlavickaInt[9];
+
+            game.setWindowHeight((windowHeight));
+            game.setWindowWidt(windowWidth);
+            game.setTileSize((tileSize));
 
             line = br.readLine();
             String carUrl = line.split(";")[0];
@@ -46,9 +58,11 @@ public class CsvGameLoader {
             String powerUpTileUrl = line.split(";")[0];
 
             Image nonRoadTileImage = loadImage(nonRoadUrl);
+            Image roadoaTileImage = loadImage(roadURL);
+            Image powerUpTileImage = loadImage(powerUpTileUrl);
             Tile nonRoadTile = new NonRoadTile(nonRoadTileImage);
-            Tile powerUpTile = new PowerUpTile();
-            Tile roadTile = new RoadTile();
+            Tile powerUpTile = new PowerUpTile(powerUpTileImage, roadoaTileImage);
+            Tile roadTile = new RoadTile(roadoaTileImage);
 
             for (int i = 0 ; i < poleHlavickaInt[0]; i++){
                 line = br.readLine();
